@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% block start %}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+<style>
+    
+    .update-container {
+        background-color: #f8f9fa;
+        min-height: 100vh;
+        padding: 3rem 0;
+    }
+    
+    
+    .update-card {
+        border-radius: 12px;
+        border: none;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+    
+    
+    .form-header {
+        background-color: #4e73df;
+        color: white;
+        padding: 1.5rem;
+        text-align: center;
+    }
+    
+    
+    .form-input {
+        border-radius: 8px;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        transition: all 0.3s;
+    }
+    
+    .form-input:focus {
+        border-color: #4e73df;
+        box-shadow: 0 0 0 0.25rem rgba(78, 115, 223, 0.25);
+    }
+    
+    
+    .btn-update {
+        background-color: #4e73df;
+        border: none;
+        padding: 12px 24px;
+        font-weight: 600;
+        transition: all 0.3s;
+    }
+    
+    .btn-update:hover {
+        background-color: #3a5bc7;
+        transform: translateY(-2px);
+    }
+    
+    
+    .custom-textarea {
+        min-height: 150px;
+        resize: vertical;
+    }
+</style>
+
+<div class="update-container">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                
+                <div class="update-card card">
+                    
+                    <div class="form-header">
+                        <h3><i class="fas fa-edit me-2"></i>Update Recipe</h3>
+                    </div>
+                    
+                    
+                    <div class="card-body p-4">
+                        
+                        <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                            {% csrf_token %}
+                            
+                            
+                            <div class="mb-4">
+                                <label for="day" class="form-label fw-bold">Day-Time</label>
+                                <input type="text" class="form-control form-input" id="day" name="day" 
+                                       value="{{ recipe.day }}" required>
+                                <div class="invalid-feedback">
+                                    Please enter the day/time.
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="mb-4">
+                                <label for="name" class="form-label fw-bold">Recipe Name</label>
+                                <input type="text" class="form-control form-input" id="name" name="name" 
+                                       value="{{ recipe.name }}" required>
+                                <div class="invalid-feedback">
+                                    Please enter the recipe name.
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="mb-4">
+                                <label for="description" class="form-label fw-bold">Description</label>
+                                <textarea class="form-control form-input custom-textarea" id="description" 
+                                          name="description" required>{{ recipe.description }}</textarea>
+                                <div class="invalid-feedback">
+                                    Please enter a description.
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="d-flex justify-content-between">
+                                <a href="/" class="btn btn-outline-secondary">
+                                    <i class="fas fa-arrow-left me-2"></i> Cancel
+                                </a>
+                                <button type="submit" class="btn btn-primary btn-update">
+                                    <i class="fas fa-save me-2"></i> Update Recipe
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    (function () {
+        'use strict'
+        const forms = document.querySelectorAll('.needs-validation')
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+</script>
+
+{% endblock %}
